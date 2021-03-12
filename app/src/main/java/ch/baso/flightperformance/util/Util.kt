@@ -1,5 +1,6 @@
 package ch.baso.flightperformance.util
 
+import android.content.res.Resources
 import android.widget.ArrayAdapter
 import android.widget.SimpleCursorAdapter
 import android.widget.Spinner
@@ -20,4 +21,7 @@ object Util {
         }
         return result
     }
+
+    fun Int.toPx(): Int = (this * Resources.getSystem().displayMetrics.density).toInt()
+
 }

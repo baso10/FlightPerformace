@@ -5,7 +5,6 @@ import android.graphics.*
 import android.util.AttributeSet
 import android.util.Log
 import android.view.View
-import ch.baso.flightperformance.calc.Calculator.MassBalance
 import ch.baso.flightperformance.model.AirplaneEnvelope
 import java.util.*
 
@@ -19,7 +18,8 @@ class EnvelopeView(context: Context?, attrs: AttributeSet?) : View(context, attr
     private var paintLines: Paint = Paint()
     private var paintCenterPoint: Paint = Paint()
     private var mFrame: Rect = Rect()
-    private var massBalance: MassBalance = MassBalance(0.0, 0.0)
+    private var totalWeight: Double = 0.0
+    private var totalMoment: Double = 0.0
 
     private fun setupPaint() {
 
@@ -71,11 +71,9 @@ class EnvelopeView(context: Context?, attrs: AttributeSet?) : View(context, attr
         canvas.drawPath(path, paintLines)
 
 
-        if (massBalance != null) {
-            val x = (screenWidth * ((massBalance.moment - leftMax) / maxWidth)).toInt()
-            val y = (screenHeight * ((topMax - massBalance.totalWeight) / maxHeight)).toInt()
-            canvas.drawCircle(x.toFloat(), y.toFloat(), 20f, paintCenterPoint)
-        }
+        val x = (screenWidth * ((totalMoment - leftMax) / maxWidth)).toInt()
+        val y = (screenHeight * ((topMax - totalWeight) / maxHeight)).toInt()
+        canvas.drawCircle(x.toFloat(), y.toFloat(), 20f, paintCenterPoint)
     }
 
     /**
@@ -93,22 +91,23 @@ class EnvelopeView(context: Context?, attrs: AttributeSet?) : View(context, attr
         mFrame = Rect(inset, inset, width - inset, height - inset)
     }
 
-    fun setMassBalance(massBalance: MassBalance) {
-        var totalWeight = massBalance.totalWeight
-        if (totalWeight > topMax) {
-            totalWeight = topMax;
+    fun setMassBalance(totalWeight: Double, totalMoment: Double) {
+        var totalWeightVal = totalWeight
+        if (totalWeightVal > topMax) {
+            totalWeightVal = topMax;
         }
-        if (totalWeight < bottomMax) {
-            totalWeight = bottomMax;
+        if (totalWeightVal < bottomMax) {
+            totalWeightVal = bottomMax;
         }
-        var totalMoment = massBalance.moment
-        if (totalMoment > rightMax) {
-            totalMoment = rightMax;
+        var totalMomentVal = totalMoment
+        if (totalMomentVal > rightMax) {
+            totalMomentVal = rightMax;
         }
-        if (totalMoment < leftMax) {
-            totalMoment = leftMax;
+        if (totalMomentVal < leftMax) {
+            totalMomentVal = leftMax;
         }
-        this.massBalance = MassBalance(totalWeight, totalMoment)
+        this.totalWeight = totalWeightVal
+        this.totalMoment = totalMomentVal
         invalidate()
     }
 

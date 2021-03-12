@@ -1,8 +1,15 @@
 package ch.baso.flightperformance.model
 
-class InputData {
+class InputData() {
+    var airplane: Airplane = Airplane()
+    var massBalanceList: List<AirplaneMassBalance> = ArrayList()
     var temperature: Int = 0
     var pressure: Int = 0
-    var airplane = ""
-    var massBalance = mutableMapOf<String, Int>()
+
+    constructor(airplane: Airplane, massBalanceList: List<AirplaneMassBalance>, temperature: Int, pressure: Int) : this() {
+        this.airplane = airplane
+        this.massBalanceList = massBalanceList
+        this.temperature = temperature
+        this.pressure = pressure
+    }
 }

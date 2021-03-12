@@ -1,13 +1,16 @@
-package ch.baso.flightperformance.calc
+package ch.baso.flightperformance.cessna
 
+import ch.baso.flightperformance.calc.BaseCalculator
+import ch.baso.flightperformance.calc.Calculator
 import ch.baso.flightperformance.model.Airplane
+import ch.baso.flightperformance.model.AirplaneMassBalance
 import org.apache.commons.math3.analysis.interpolation.SplineInterpolator
 
 open class Cessna172Calculator : BaseCalculator() {
 
-    override fun calculateTakeoff(airplane: Airplane, pressure: Int, temperature: Int): Calculator.TakeoffLanding {
+    override fun calculateTakeoff(airplane: Airplane, pressure: Int, temperature: Int, totalWeight: Double): Calculator.TakeoffLanding {
         val lines = airplane.takeOffPerformance
-        val totalWeightPound = airplane.totalWeight * 2.20462
+        val totalWeightPound = totalWeight * 2.20462
 
         val sectionIndex = if (totalWeightPound == 0.0) 1 else if (totalWeightPound <= 2200) 3 else if (totalWeightPound <= 2400) 2 else 1
         val pressure1 = if (pressure < 0) 0 else if (pressure > 8000) 8000 else pressure
@@ -83,12 +86,12 @@ open class Cessna172Calculator : BaseCalculator() {
         return Calculator.TakeoffLanding(runFinal.toInt(), distFinal.toInt())
     }
 
-    override fun calculateLanding(airplane: Airplane, pressure: Int, temperature: Int): Calculator.TakeoffLanding {
+    override fun calculateLanding(airplane: Airplane, pressure: Int, temperature: Int, totalWeight: Double): Calculator.TakeoffLanding {
         val lines = airplane.landingPerformance
 
         val sectionIndex = 1
-        val pressure1 = if (pressure < 0) 0 else if (pressure > 8000) 8000 else pressure
-        val temperature1 = if (temperature > 40) 40 else if (temperature < 0) 0 else temperature
+        val pressure1 = if (pressure <= 0) 0 else if (pressure > 8000) 8000 else pressure
+        val temperature1 = if (temperature > 40) 40 else if (temperature <= 0) 1 else temperature
 
         val pressureDataPoints = listOf(0, 1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000)
         val temperatureDataPoints = listOf(0, 0, 10, 10, 20, 20, 30, 30, 40, 40)
@@ -111,7 +114,7 @@ open class Cessna172Calculator : BaseCalculator() {
 
         //select temp column
         val temperatureIndexes = when {
-            temperature1 <= 0 -> Pair(0, 0)
+            temperature1 <= 0 -> Pair(0, 10)
             temperature1 in 1..10 -> Pair(0, 10)
             temperature1 in 11..20 -> Pair(10, 20)
             temperature1 in 21..30 -> Pair(20, 30)

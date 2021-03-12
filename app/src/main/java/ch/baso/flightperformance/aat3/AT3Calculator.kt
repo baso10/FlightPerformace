@@ -1,11 +1,13 @@
-package ch.baso.flightperformance.calc
+package ch.baso.flightperformance.aat3
 
+import ch.baso.flightperformance.calc.BaseCalculator
+import ch.baso.flightperformance.calc.Calculator
 import ch.baso.flightperformance.model.Airplane
 import ch.baso.flightperformance.model.DataPoint
 import ch.baso.flightperformance.util.Util
 
 class AT3Calculator : BaseCalculator() {
-    override fun calculateLanding(airplane: Airplane, pressure: Int, temperature: Int): Calculator.TakeoffLanding {
+    override fun calculateLanding(airplane: Airplane, pressure: Int, temperature: Int, totalWeight: Double): Calculator.TakeoffLanding {
         val lines = airplane.landingPerformance
         val dataPoints0 = Util.getDataPoints(lines[0])
         val dataPoints1460 = Util.getDataPoints(lines[1])
@@ -31,7 +33,7 @@ class AT3Calculator : BaseCalculator() {
         return result
     }
 
-    override fun calculateTakeoff(airplane: Airplane, pressure: Int, temperature: Int): Calculator.TakeoffLanding {
+    override fun calculateTakeoff(airplane: Airplane, pressure: Int, temperature: Int, totalWeight: Double): Calculator.TakeoffLanding {
         val lines = airplane.takeOffPerformance
         val dataPoints0 = Util.getDataPoints(lines[0])
         val dataPoints1460 = Util.getDataPoints(lines[1])

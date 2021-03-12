@@ -9,8 +9,7 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        >
+        android:layout_margin="10dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -74,13 +73,14 @@
                     android:inputType="numberSigned" />
             </LinearLayout>
 
-            <LinearLayout
+            <androidx.fragment.app.FragmentContainerView
                 android:id="@+id/massBalanceViews"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_marginBottom="20dp"
+                >
 
-            </LinearLayout>
+            </androidx.fragment.app.FragmentContainerView>
 
 
             <LinearLayout
@@ -90,100 +90,22 @@
 
                 <Button
                     android:id="@+id/btnCalculate"
+                    style="@style/Widget.AppCompat.Button.Colored"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Calculate"
-                    android:textColor="@android:color/white"
-                    style="@style/Widget.AppCompat.Button.Colored"
-                    />
+                    android:textColor="@android:color/white" />
 
             </LinearLayout>
 
 
-            <LinearLayout
+            <androidx.fragment.app.FragmentContainerView
+                android:id="@+id/airplaneFragmentView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/tvAirplaneName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingEnd="10px"
-                    android:text=""
-                    android:textColor="@android:color/black"
-                    android:textSize="20sp" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingEnd="10px"
-                    android:text="Take-off:" />
-
-                <TextView
-                    android:id="@+id/tvTakeoffRun"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@android:color/black"
-                    android:textSize="18sp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingEnd="10px"
-                    android:text="Landing:" />
-
-                <TextView
-                    android:id="@+id/tvLandingRun"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@android:color/black"
-                    android:textSize="18sp"
-
-                    />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingEnd="10px"
-                    android:text="W&amp;B:" />
-
-                <TextView
-                    android:id="@+id/tvWeightBalance"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@android:color/black"
-                    android:textSize="18sp"
-
-                    />
-            </LinearLayout>
-
-            <ch.baso.flightperformance.view.EnvelopeView
-                android:id="@+id/envelopeMassBalance"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
                 android:layout_marginBottom="20dp">
 
-            </ch.baso.flightperformance.view.EnvelopeView>
+            </androidx.fragment.app.FragmentContainerView>
 
 
         </LinearLayout>
