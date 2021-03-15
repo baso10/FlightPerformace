@@ -3,7 +3,10 @@ Flight Performance Calculator
 ============================
 ![Java CI with Gradle](https://github.com/baso10/FlightPerformace/workflows/Java%20CI%20with%20Gradle/badge.svg)  
 
-Android app to calculate Aero AT-3 Take-off and Landing distances.
+Android app to calculate Take-off and Landing distances.
+
+ * Aero AT3
+ * Bristell B23
 
 ## License
 
